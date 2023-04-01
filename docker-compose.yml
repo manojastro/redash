@@ -30,24 +30,18 @@ services:
     ports:
       - "5001:5000"
       - "5678:5678"
-    environment:
-      <<: *redash-environment
-      PYTHONUNBUFFERED: 0
+    
   scheduler:
     <<: *redash-service
     command: dev_scheduler
     depends_on:
       - server
-    environment:
-      <<: *redash-environment
+
   worker:
     <<: *redash-service
     command: dev_worker
     depends_on:
       - server
-    environment:
-      <<: *redash-environment
-      PYTHONUNBUFFERED: 0
   redis:
     image: redis:3-alpine
     restart: unless-stopped
